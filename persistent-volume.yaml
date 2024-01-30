@@ -28,4 +28,4 @@ spec:
   storageClassName: efs-filesystem
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: <your-mysql-efs-file-system-id>
+    volumeHandle: fs-02411a71997d17fdd
