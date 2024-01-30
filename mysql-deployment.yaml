@@ -15,11 +15,10 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  labels:
-    name: wordpress-mysql
   name: wordpress-mysql
 spec:
-  replicas: 1
+  replicas: 2
+  serviceName: mysql
   selector:
     matchLabels:
       name: wordpress-mysql
