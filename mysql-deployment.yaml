@@ -43,6 +43,6 @@ spec:
               name: wp-db-secrets
               key: MYSQL_ROOT_PASSWORD
       volumes:
-      - name: "mysql-efs-volume"
+      - name: mysql-efs-volume
         persistentVolumeClaim:
           claimName: mysql-efs-pvc

@@ -12,7 +12,7 @@ spec:
   storageClassName: efs-filesystem
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: <your-wordpress-efs-file-system-id>
+    volumeHandle: fs-02411a71997d17fdd
 ---
 apiVersion: v1
 kind: PersistentVolume

@@ -32,7 +32,6 @@ jobs:
           
     - name: Deploy application images to EKS cluster using manifest
       run: |
-        kubectl apply -f namespace.yaml
         kubectl apply -f efs-storageclass.yaml
         kubectl apply -f persistent-volume.yaml
         kubectl apply -f persistent-volume-claim.yaml
