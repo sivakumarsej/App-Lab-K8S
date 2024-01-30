@@ -18,7 +18,7 @@ metadata:
   name: wordpress-mysql
 spec:
   replicas: 2
-  serviceName: mysql
+  serviceName: wordpress-mysql
   selector:
     matchLabels:
       name: wordpress-mysql
