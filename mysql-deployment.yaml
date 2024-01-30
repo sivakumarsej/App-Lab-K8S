@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: wordpress-mysql
+  name: wordpress-mysql
+spec:
+  ports:
+    - port: 3306
+  selector:
+    name: wordpress-mysql
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: wordpress-mysql
+  name: wordpress-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: wordpress-mysql
+  template:
+    metadata:
+      labels:
+        name: wordpress-mysql
+    spec:
+      containers:
+      - name: wordpress-mysql
+        image: mysql:8.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3306
+          name: wordpress-mysql
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-efs-volume
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-password
+      volumes:
+      - name: "mysql-efs-volume"
+        persistentVolumeClaim:
+          claimName: mysql-efs-pvc

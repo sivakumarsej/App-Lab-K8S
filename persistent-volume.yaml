@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wordpress-efs-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: efs-filesystem
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: <your-wordpress-efs-file-system-id>
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-efs-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: efs-filesystem
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: <your-mysql-efs-file-system-id>
