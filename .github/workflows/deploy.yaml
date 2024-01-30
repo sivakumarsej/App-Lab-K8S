@@ -32,10 +32,10 @@ jobs:
           
     - name: Deploy application images to EKS cluster using manifest
       run: |
-        kubectl apply -f efs-storageclass.yml
-        kubectl apply -f persistent-volume.yml
-        kubectl apply -f persistent-volume-claim.yml
-        kubectl apply -f wp-configmap.yml
-        kubectl apply -f secret.yml
-        kubectl apply -f mysql-deployment.yml
-        kubectl apply -f wordpress-deployment.yml 
+        kubectl apply -f efs-storageclass.yaml
+        kubectl apply -f persistent-volume.yaml
+        kubectl apply -f persistent-volume-claim.yaml
+        kubectl apply -f wp-configmap.yaml
+        kubectl apply -f secret.yaml
+        kubectl apply -f mysql-deployment.yaml
+        kubectl apply -f wordpress-deployment.yaml 
