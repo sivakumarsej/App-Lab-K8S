@@ -28,7 +28,7 @@ jobs:
         #   version: '1.27' # default is latest stable
     - name: Update kube config
       run: |
-        aws eks update-kubeconfig --name eks-cluster-L1Ivj --region ${{ env.AWS_REGION }}	
+        aws eks update-kubeconfig --name eksdemo --region ${{ env.AWS_REGION }}	
           
     - name: Deploy application images to EKS cluster using manifest
       run: |
