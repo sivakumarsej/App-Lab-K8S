@@ -28,7 +28,7 @@ jobs:
     
     - name: Update kube config
       run: |
-        aws eks update-kubeconfig --name ekslabcluster --region ${{ env.AWS_REGION }}	
+        aws eks update-kubeconfig --name labekscluster --region ${{ env.AWS_REGION }}	
           
     - name: Deploy application images to EKS cluster using manifest
       run: |
