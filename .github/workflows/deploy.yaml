@@ -7,13 +7,14 @@ env:
 permissions:
   id-token: write
   contents: read
+  issues: write
 jobs:
   deployment:
     name: Deploy application to EKS cluster
     runs-on: ubuntu-latest
     steps: 
-    - name: Checkout code from GitHub to runner
-      uses: actions/checkout@v2
+    - name: Checkout Repo
+      uses: actions/checkout@v3
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v2
@@ -24,18 +25,15 @@ jobs:
 
     - name: Install kubectl
       uses: azure/setup-kubectl@v3
-        # with:
-        #   version: '1.27' # default is latest stable
+    
     - name: Update kube config
       run: |
-        aws eks update-kubeconfig --name eksdemo --region ${{ env.AWS_REGION }}	
+        aws eks update-kubeconfig --name ekslabcluster --region ${{ env.AWS_REGION }}	
           
     - name: Deploy application images to EKS cluster using manifest
       run: |
-        kubectl apply -f efs-storageclass.yaml
-        kubectl apply -f persistent-volume.yaml
-        kubectl apply -f persistent-volume-claim.yaml
-        kubectl apply -f wp-configmap.yaml
-        kubectl apply -f mysql-secret.yaml
-        kubectl apply -f mysql-statefulset.yaml
+        kubectl apply -f storageclass.yaml
+        kubectl apply -f pvc.yaml
+        kubectl apply -f rds-external-service.yaml
+        kubectl apply -f secret.yaml
         kubectl apply -f wordpress-deployment.yaml 

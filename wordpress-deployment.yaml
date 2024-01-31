@@ -2,28 +2,28 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: wordpress-efs
-  name: wordpress-efs
+    name: wordpress
+  name: wordpress
 spec:
   ports:
     - port: 80
   selector:
-    name: wordpress-efs
+    name: wordpress
   type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wordpress-efs
+  name: wordpress
 spec:
   replicas: 2
   selector:
     matchLabels:
-      name: wordpress-efs
+      name: wordpress
   template:
     metadata:
       labels:
-        name: wordpress-efs
+        name: wordpress
     spec:
       containers:
       - name: wordpress
@@ -31,13 +31,10 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-          name: wordpress-efs
+          name: wordpress
         volumeMounts:
         - mountPath: /var/www/html
-          name: wordpress-efs-volume
-        - mountPath: /usr/local/etc/php/conf.d/uploads.ini
-          name: php-config
-          subPath: uploads.ini
+          name: wordpress-ebs-volume
         env:
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:
@@ -45,13 +42,10 @@ spec:
               name: wp-db-secrets
               key: MYSQL_ROOT_PASSWORD
         - name: WORDPRESS_DB_USER
-          value: admin
+          value: wordpress
         - name: WORDPRESS_DB_HOST
           value: wordpress-mysql
       volumes:
-      - name: wordpress-efs-volume
+      - name: wordpress-ebs-volume
         persistentVolumeClaim:
-          claimName: wordpress-efs-pvc
-      - name: php-config
-        configMap:
-          name: wordpress-efs-php-config
+          claimName: ebs-mysql-pv-claim
